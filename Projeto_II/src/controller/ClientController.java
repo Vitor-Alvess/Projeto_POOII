@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 
@@ -108,7 +109,7 @@ public class ClientController extends JFrame implements ActionListener {
     public void connectToServer() {
         new Thread(() -> {
             try {
-                socket = new Socket("localhost", 8080);
+                socket = new Socket("192.168.0.8", 8080);
                 System.out.println(socket.getInetAddress() + " conectado");
 
                 electionsRunning = true;

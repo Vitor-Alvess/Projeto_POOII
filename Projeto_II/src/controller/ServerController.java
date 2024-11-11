@@ -90,6 +90,10 @@ public class ServerController extends JFrame implements ActionListener {
         return this.electionsRunning;
     }
 
+    public List<Candidate> getCandidatesRepository () {
+        return this.candidatesRepository;
+    }
+
     public void startServer () {
         new Thread(() -> {
             try {
@@ -352,6 +356,7 @@ class ClientHandler extends Thread {
             if (parent.getElectionsRunning())
             {
                 sendMessage("begin");
+                sendMessage(parent.getCandidatesRepository());
             }
 
             while (parent.getConnectionsStatus()) {
