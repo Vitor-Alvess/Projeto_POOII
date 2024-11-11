@@ -3,7 +3,6 @@ package Models;
 import java.io.Serializable;
 
 public class Candidate implements Serializable {
-    @SuppressWarnings("unused")
     private static final Long serialVersionUID = 1L;
     private String name;
     private Integer votesCounter;

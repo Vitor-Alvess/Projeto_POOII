@@ -34,7 +34,7 @@ public class HelpAboutMenuBar extends JMenuBar {
             @Override
             public void mousePressed (MouseEvent e) {
                 String str = """
-                        Projeto de Interface Gráfica com Java - Leitor de arquivos .txt \n
+                        Projeto com GUI em Java - Sistema de votação\n
                         Versão 1.0\n
                         Autores:\n
                         Victor Oliveira Batista da Silva\n

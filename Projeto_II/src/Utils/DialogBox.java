@@ -47,29 +47,16 @@ public class DialogBox extends JDialog implements ActionListener{
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
         
-        // Content panel with scroll bar
         JTextArea helpText = new JTextArea();
         helpText.setEditable(false);
         helpText.setText("Bem-vindo à seção de ajuda!\n\n"
         + "Aqui você encontrará informações sobre como utilizar a aplicação:\n\n"
-        + "1. Menu Arquivo:\n"
-        + "   - Abrir Arquivo: Abre um diálogo para escolher e abrir um arquivo de texto.\n"
-        + "   - Fechar Arquivo: Fecha o arquivo atual e limpa a tela.\n"
-        + "   - Sair: Fecha a aplicação.\n\n"
-        + "2. Menu Configuração:\n"
-        + "   - Padrões: Define padrões de comportamento da interface.\n"
-        + "   - Cores: Altera as cores da animação de fundo.\n"
-        + "   - Velocidade: Ajusta a velocidade da animação de fundo.\n\n"
-        + "3. Menu Ajuda:\n"
-        + "   - Ajuda: Exibe esta janela com informações sobre o uso da aplicação.\n"
-        + "   - Sobre: Informações sobre os autores e a versão.\n\n"
-        + "Para mais informações, entre em contato com a equipe de suporte.");
+        + "-------- TEXTO AQUI ----------");
         
         JScrollPane scrollPane = new JScrollPane(helpText);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane, BorderLayout.CENTER);
         
-        // Bottom panel with buttons
         JPanel buttonPanel = new JPanel();
         JButton closeButton = new JButton("Fechar");
         closeButton.addActionListener(new ActionListener() {

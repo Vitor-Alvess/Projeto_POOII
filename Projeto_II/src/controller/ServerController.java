@@ -44,7 +44,7 @@ public class ServerController extends JFrame implements ActionListener {
     public ServerController (List<Candidate> list) {
         super("Controle de votos");
         setBounds(300, 90, 1000, 600);
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         this.panel = new JPanel();
@@ -137,20 +137,26 @@ public class ServerController extends JFrame implements ActionListener {
             int i = 0, verificador = 0;
             int soma = 0;
 
-            for (i = 0; i<=8; i++)
-                soma +=(Integer.parseInt(String.valueOf((user.getCpf().charAt(i)))))*(i+1);
+            for (i = 0; i <= 8; i++)
+                soma += (Integer.parseInt(String.valueOf((user.getCpf().charAt(i))))) * (10 - i);
 
-            if (soma % 11 != 11) verificador = soma % 11;
+            if (soma % 11 <= 11) verificador = 11 - (soma % 11);
+            else return 1;
+
+            verificador = (verificador >= 10) ? 0 : verificador;
             
-            if (String.valueOf((user.getCpf()).charAt(10)).equals(String.valueOf(verificador)))
+            if (String.valueOf((user.getCpf()).charAt(9)).equals(String.valueOf(verificador)))
             {
                 soma = 0;
                 verificador = 0;
 
                 for (i = 0;i <= 9; i++) 
-                    soma += (Integer.parseInt(String.valueOf(user.getCpf().charAt(i))))*(i);
+                    soma += (Integer.parseInt(String.valueOf(user.getCpf().charAt(i)))) * (11 - i);
                 
-                if (soma % 11 != 10) verificador = soma % 11;
+                if (soma % 11 <= 11) verificador = 11 - (soma % 11);
+                else return 1;
+
+                verificador = (verificador >= 10) ? 0 : verificador;
                 
                 if (String.valueOf((user.getCpf().charAt(10))).equals(String.valueOf(verificador))) System.out.println("CPF Válido");
                 else return 1;
@@ -262,8 +268,11 @@ public class ServerController extends JFrame implements ActionListener {
             {
                 electionsRunning = true;
 
-                for (ClientHandler client : clientsList) 
+                for (ClientHandler client : clientsList) {
                     client.sendMessage("begin");
+                    client.sendMessage(candidatesRepository);
+                }
+                    
                 
 
                 changeButtonText("Encerrar Eleições");
@@ -322,7 +331,7 @@ class ClientHandler extends Thread {
         this.parent = parent;
     }
 
-    public void sendMessage (String message) {
+    public <T> void sendMessage (T message) {
         try {
             out.writeObject(message);
             out.flush();

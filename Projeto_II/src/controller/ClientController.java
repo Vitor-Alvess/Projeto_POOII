@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -18,7 +17,7 @@ import Models.User;
 import Utils.DialogBox;
 import Utils.HelpAboutMenuBar;
 
-public class ClientController extends JFrame implements ActionListener{
+public class ClientController extends JFrame implements ActionListener {
     private JPanel panel;    
     private HelpAboutMenuBar menuBar;
     private JLabel title;
@@ -35,14 +34,11 @@ public class ClientController extends JFrame implements ActionListener{
     private ObjectInputStream in;
     private Boolean electionsRunning = false;
 
-    public ClientController(List<Candidate> candidatesList) {
+    public ClientController() {
         super("Sistema de votação");
         setBounds(300, 90, 400, 400);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        this.candidatesList = new ArrayList<>();
-        this.candidatesList.addAll(candidatesList);
      
         this.panel = new JPanel();
         this.panel.setLayout(null);
@@ -84,7 +80,6 @@ public class ClientController extends JFrame implements ActionListener{
         this.panel.add(tcpf);
 
         this.voteSelectBox = new JComboBox<String>();
-        candidatesList.forEach(c -> voteSelectBox.addItem(c.getName()));
         this.voteSelectBox.setFont(new Font("Calibri", Font.PLAIN, 15));
         this.voteSelectBox.setSize(100, 30);
         this.voteSelectBox.setLocation(125, 200);
@@ -137,11 +132,19 @@ public class ClientController extends JFrame implements ActionListener{
     }
     
     private void enableVote () {
-        tname.setEnabled(true);
-        tcpf.setEnabled(true);
-        voteSelectBox.setEnabled(true);
-        warningLabel.setText("");
-        confirmButton.setEnabled(true);
+        try { 
+            candidatesList = (List<Candidate>) in.readObject();
+            candidatesList.forEach(c -> voteSelectBox.addItem(c.getName()));
+
+            tname.setEnabled(true);
+            tcpf.setEnabled(true);
+            voteSelectBox.setEnabled(true);
+            warningLabel.setText("");
+            confirmButton.setEnabled(true);
+        }
+        catch (Exception e) {
+            System.out.println("ERRO:: " + e.getMessage());
+        }
     }
 
     private void disableVote () {
