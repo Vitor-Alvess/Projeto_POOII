@@ -1,8 +1,11 @@
 {
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\20vit.DESKTOP-4T1A2DS\\Downloads\\jfreechart-1.0.19\\lib\\jfreechart-1.0.19.jar",
-        "c:\\Users\\20vit.DESKTOP-4T1A2DS\\Downloads\\jfreechart-1.0.19\\lib\\swtgraphics2d.jar",
-        "c:\\Users\\20vit.DESKTOP-4T1A2DS\\Downloads\\jfreechart-1.0.19\\lib\\jcommon-1.0.23.jar"
+        "Projeto_II/lib/jcommon-1.0.23.jar",
+        "Projeto_II/lib/jfreechart-1.0.19.jar",
+        "Projeto_II/lib/swtgraphics2d.jar"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.sourcePaths": [
+        "Projeto_II/src"
     ]
 }

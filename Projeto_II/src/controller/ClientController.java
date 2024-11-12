@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
+import java.io.*;
 import java.net.Socket;
 import java.util.List;
+import java.util.Properties;
 
 import javax.swing.*;
 
@@ -34,13 +32,14 @@ public class ClientController extends JFrame implements ActionListener {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private Boolean electionsRunning = false;
+    private File networkfile;
 
     public ClientController() {
         super("Sistema de votação");
         setBounds(300, 90, 400, 400);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-     
+
         this.panel = new JPanel();
         this.panel.setLayout(null);
         add(panel);
@@ -109,7 +108,19 @@ public class ClientController extends JFrame implements ActionListener {
     public void connectToServer() {
         new Thread(() -> {
             try {
-                socket = new Socket("192.168.0.8", 8080);
+                networkfile = new File("network.properties");
+                String IP = null;
+                int port = 0;
+                System.out.println("Working Directory = " + System.getProperty("user.dir"));
+                if(networkfile.exists()) {
+                    FileInputStream input = new FileInputStream(networkfile);
+                    Properties config = new Properties();
+                    config.load(input);
+                    IP = config.getProperty("IP");
+                    System.out.println(IP);
+                    port = Integer.parseInt(config.getProperty("PORT"));
+                }
+                socket = new Socket(IP, port);
                 System.out.println(socket.getInetAddress() + " conectado");
 
                 electionsRunning = true;
