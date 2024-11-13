@@ -4,13 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-=======
 import java.io.*;
->>>>>>> 8629b38b2fe181e678d8077c59f089fce6330af3
 import java.net.Socket;
 import java.util.List;
 import java.util.Properties;
