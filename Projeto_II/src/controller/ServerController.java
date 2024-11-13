@@ -24,6 +24,7 @@ import Models.Candidate;
 import Models.User;
 import Utils.BarChart;
 import Utils.DialogBox;
+import Utils.GetIP;
 import Utils.HelpAboutMenuBar;
 
 public class ServerController extends JFrame implements ActionListener {
@@ -90,13 +91,19 @@ public class ServerController extends JFrame implements ActionListener {
         return this.electionsRunning;
     }
 
+    public List<Candidate> getCandidatesRepository () {
+        return this.candidatesRepository;
+    }
+
     public void startServer () {
         new Thread(() -> {
             try {
                 changeButtonText("Iniciar eleições");
+                String IP = GetIP.getMyIP();
+                int port = 8080;
+                server = new ServerSocket(port);
 
-                server = new ServerSocket(8080);
-                System.out.println("Servidor ouvindo a porta 8080!");
+                System.out.printf("Servidor em %s ouvindo a porta %d!",IP,port);
                 
                 while (true) {
                     Socket socket = server.accept();
@@ -352,6 +359,7 @@ class ClientHandler extends Thread {
             if (parent.getElectionsRunning())
             {
                 sendMessage("begin");
+                sendMessage(parent.getCandidatesRepository());
             }
 
             while (parent.getConnectionsStatus()) {

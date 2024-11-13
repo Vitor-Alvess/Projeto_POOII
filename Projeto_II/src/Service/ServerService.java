@@ -7,7 +7,6 @@ import Models.Candidate;
 import controller.ServerController;
 
 public class ServerService {
-    @SuppressWarnings("unused")
     public static void main (String[] args) {
         Candidate candidate1 = new Candidate("Candidato 1");
         Candidate candidate2 = new Candidate("Candidato 2");
